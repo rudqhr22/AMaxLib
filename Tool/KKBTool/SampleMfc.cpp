@@ -218,24 +218,77 @@ void AChrForm::OnBnClickedButtonChar()
 
 	AChrForm2::GetInstance()->m_TreeList;
 
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++) {
-		m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
+
+	HTREEITEM top=0;
+	HTREEITEM top2=0;
+	T_STR prevParent;
+	T_STR prevNode;
+
+	TCHAR szItem[256];
+
+	TVITEM tvItem;
+	tvItem.cchTextMax = 256;
+	tvItem.pszText = szItem;
+	tvItem.mask = TVIF_TEXT | TVIF_HANDLE;
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++) 
+	{
+		auto strNode  = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
+		auto strParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
+		
+		if (strParent == L""|| strParent== L"장면 루트")
+		{
+			top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+		}
+		else
+		{
+			//AChrForm2::GetInstance()->RecursiveFunction(top);
+			if (prevParent== strParent)
+			{
+				AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+			}
+			else
+			{
+				top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+			}
+			
+		}
+
+
+
+		if (prevParent != strParent) {
+			prevParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
+		}
+		else
+		{
+			prevParent;
+		}
 	}
-	//HTREEITEM top = AChrForm2::GetInstance()->m_TreeList.InsertItem("동물", TVI_ROOT, TVI_LAST);
-	//HTREEITEM do_1 = AChrForm2::GetInstance()->m_TreeList.InsertItem("고양이 1", top, TVI_LAST);
-
-	//AChrForm2::GetInstance()->m_TreeList.InsertItem("털많은고양이", do_1, TVI_LAST);
-	//AChrForm2::GetInstance()->m_TreeList.InsertItem("큰 고양이", do_1, TVI_LAST);
-
-	//HTREEITEM do_2 = AChrForm2::GetInstance()->m_TreeList.InsertItem("코끼리 ", top, TVI_LAST);
-	//AChrForm2::GetInstance()->m_TreeList.InsertItem("검은 코끼리", do_2, TVI_LAST);
-	//AChrForm2::GetInstance()->m_TreeList.InsertItem("흰 코끼리", do_2, TVI_LAST);
-
-
-
-
-
 }
+
+
+void AChrForm2::RecursiveFunction(HTREEITEM hItem)
+{
+	if (hItem == NULL) return;
+
+	while (hItem) 
+	{
+			// 수행할 기능 추가
+
+			// 자식 노드 존재 확인
+
+			if (m_TreeList.ItemHasChildren(hItem)) 
+			{
+
+				// 재귀함수 다시 호출
+				RecursiveFunction(m_TreeList.GetChildItem(hItem));
+			}
+
+		// 자식 노드가 없으면 형제 노드 사용
+		hItem = m_TreeList.GetNextSiblingItem(hItem);
+	}
+}
+
+
 
 void AChrForm::OnBnClickedBone()
 {
