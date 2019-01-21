@@ -333,3 +333,6 @@ ASALocalRun/
 # Log files
 *.tlog
 *.idb
+
+# Folder
+output/
