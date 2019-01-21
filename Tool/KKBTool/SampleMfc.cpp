@@ -226,6 +226,8 @@ void AChrForm::OnBnClickedButtonChar()
 
 	TCHAR szItem[256];
 
+
+	AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
 	TVITEM tvItem;
 	tvItem.cchTextMax = 256;
 	tvItem.pszText = szItem;
