@@ -379,6 +379,9 @@ void MaxWriter::ExpMatrix()
 			TriObject	*tri = GetTriObjectFromNode(pPoint->m_pINode, t, needDel);
 			if (tri != NULL)
 			{
+				INode* pParent = pPoint->m_pINode->GetParentNode();
+				pPoint->m_szParentName = pParent->GetName();
+
 				Matrix3		tm = pPoint->m_pINode->GetObjTMAfterWSM(t);// I_Writer.m_p3dsMax->GetTime());
 				Mesh		*mesh = &tri->GetMesh();
 				mesh->buildNormals();

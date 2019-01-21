@@ -3,7 +3,7 @@
 *CHARACTERNAME	TEST_CHAR1
 *SHADERFILENMAE		../../data/Shader/Character.hlsl
 *MATRIXMATRIXCOUNT	1
-*MATRIXFILENAME		../../data/ASE/mob2.Mat
+*MATRIXFILENAME		../../data/ASE/mob3.Mat
 
 *SKIN_UPPER_BODY_COUNT	1
 *SKIN_UPPER_BODY	../../data/ASE/mobskin.skm		null
