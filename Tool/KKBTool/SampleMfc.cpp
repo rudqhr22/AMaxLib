@@ -15,7 +15,7 @@ CString m_StrChar;
 bool SampleMfc::Init()
 {
 	m_pLine = new ALineShape;
-	m_pLine->Set(g_pd3dDevice.Get(), L"../data/shader/Line.hlsl", 0, true);
+	m_pLine->Set(g_pd3dDevice.Get(), L"../../data/shader/Line.hlsl", 0, true);
 
 	m_DrawHelper.DrawInit();
 	
@@ -160,7 +160,7 @@ void AChrForm::OnLbnDblclkList1()
 
 	temp += str;
 
-	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), temp, _T("../Data/Shader/MatrixViewer.hlsl"));
+	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), temp, _T("../../Data/Shader/MatrixViewer.hlsl"));
 	m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
 
 	m_CharObj->m_pBoneObject = m_BoneObj;
@@ -203,7 +203,7 @@ void AChrForm::OnBnClickedButtonChar()
 
 
 	m_CharObj->m_pChar = I_CHARMGR.GetPtr(0);
-	m_ModelObj->Load(g_pd3dDevice.Get(), m_CharObj->m_pChar->m_pModelList[0]->m_pModel->m_szName.c_str(), _T("../Data/Shader/SkinViewer.hlsl"), 0);
+	m_ModelObj->Load(g_pd3dDevice.Get(), m_CharObj->m_pChar->m_pModelList[0]->m_pModel->m_szName.c_str(), _T("../../Data/Shader/SkinViewer.hlsl"), 0);
 	
 	m_CharObj->m_pBoneObject = m_CharObj->m_pChar->m_pBoneObject;
 	m_CharObj->SetActionFrame(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
@@ -253,7 +253,7 @@ void AChrForm::OnBnClickedBone()
 	m_BoneObj = new ABoneObj;
 
 	
-	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), m_StrChar, _T("../Data/Shader/MatrixViewer.hlsl"));
+	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), m_StrChar, _T("../../Data/Shader/MatrixViewer.hlsl"));
 	m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
 
 	m_CharObj->m_pBoneObject = m_BoneObj;

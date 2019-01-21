@@ -1,11 +1,12 @@
 *NUMCHARACTER		1
 //////////////////////////////////////////////////////////////////////////
 *CHARACTERNAME	TEST_CHAR1
-*SHADERFILENMAE		../data/Shader/Character.hlsl
-*MATRIXFILENAME		../data/ASE/man.Mat
+*SHADERFILENMAE		../../data/Shader/Character.hlsl
+*MATRIXMATRIXCOUNT	1
+*MATRIXFILENAME		../../data/ASE/man2.Mat
 
 *SKIN_UPPER_BODY_COUNT	1
-*SKIN_UPPER_BODY	../data/ASE/Man.skm		null
+*SKIN_UPPER_BODY	../../data/ASE/Man.skm		null
 *SKIN_LOWER_BODY_COUNT	0
 *SKIN_ARM_COUNT			0
 *SKIN_HAND_COUNT		0
@@ -14,6 +15,6 @@
 *SKIN_HAIR_COUNT		0
 *SKIN_WEAPON_COUNT		0
 *SKIN_DEFENSE_COUNT		0	
-*SKIN_ETCETERA_COUNT	1
-*SKIN_ETCETERA	../data/ASE/manPack.skm		null
+*SKIN_ETCETERA_COUNT	0
+*SKIN_ETCETERA	../../data/ASE/manPack.skm		null
 

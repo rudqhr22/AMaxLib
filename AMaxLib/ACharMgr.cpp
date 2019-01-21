@@ -228,7 +228,7 @@ bool	ACharMgr::Load(ID3D11Device* pd3dDevice,
 				m_Parser.GetDataFromFileLoop(_T("*MATRIXFILENAME"), strMatrixName, STRING_DATA);
 				if (_tcsicmp(strMatrixName, _T("null")))
 				{
-					iMatrixIndex = I_OBJMGR.LoadObj(pd3dDevice, strMatrixName, _T("MatrixViewer.hlsl"));
+					iMatrixIndex = I_OBJMGR.LoadObj(pd3dDevice, strMatrixName, _T("../../Data/Shader/MatrixViewer.hlsl"));
 				}
 			}
 			iCharacterIndex = Create(pd3dDevice, pImmediateContext,
@@ -248,7 +248,7 @@ bool	ACharMgr::Load(ID3D11Device* pd3dDevice,
 					if (_tcsicmp(strMatrixName, _T("null")))
 					{
 						// 메쉬 단위로 별도의 매트릭스 사용시 적용됨.
-						iModelMatrixIndex = I_OBJMGR.LoadObj(pd3dDevice, strMatrixName, _T("MatrixViewer.hlsl"));
+						iModelMatrixIndex = I_OBJMGR.LoadObj(pd3dDevice, strMatrixName, _T("../../Data/Shader/MatrixViewer.hlsl"));
 					}
 					if (pChar)
 					{
