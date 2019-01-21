@@ -5,27 +5,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SampleMfc.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AEffectForm.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AEffectPane.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AMapForm.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AMapPane.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AUiForm.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AUiPane.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="AChrForm.cpp">
       <Filter>NewFilter2</Filter>
     </ClCompile>
@@ -50,34 +29,30 @@
     <ClCompile Include="MapToolView.cpp">
       <Filter>NewFilter3</Filter>
     </ClCompile>
+    <ClCompile Include="AEffectForm.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="AEffectPane.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="AMapForm.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="AMapPane.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="AUiForm.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="AUiPane.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Resource.h" />
     <ClInclude Include="SampleMfc.h" />
-    <ClInclude Include="targetver.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AEffectForm.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AEffectPane.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AMapForm.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AMapPane.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AUiForm.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AUiPane.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="AChrForm.h">
       <Filter>NewFilter2</Filter>
     </ClInclude>
@@ -102,30 +77,57 @@
     <ClInclude Include="MapToolView.h">
       <Filter>NewFilter3</Filter>
     </ClInclude>
+    <ClInclude Include="AEffectForm.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="AEffectPane.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="AMapForm.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="AMapPane.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="AUiForm.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="AUiPane.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MapTool.ico">
-      <Filter>Resource</Filter>
-    </Image>
-    <Image Include="res\userimages.bmp">
-      <Filter>Resource</Filter>
-    </Image>
-    <Image Include="res\Toolbar256.bmp">
-      <Filter>Resource</Filter>
-    </Image>
-    <Image Include="res\Toolbar.bmp">
-      <Filter>Resource</Filter>
+      <Filter>NewFilter1</Filter>
     </Image>
     <Image Include="res\MapToolDoc.ico">
-      <Filter>Resource</Filter>
+      <Filter>NewFilter1</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>NewFilter1</Filter>
+    </Image>
+    <Image Include="res\Toolbar256.bmp">
+      <Filter>NewFilter1</Filter>
+    </Image>
+    <Image Include="res\userimages.bmp">
+      <Filter>NewFilter1</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\MapTool.rc2">
-      <Filter>Resource</Filter>
-    </None>
     <None Include="ClassDiagram.cd">
-      <Filter>Resource</Filter>
+      <Filter>NewFilter1</Filter>
+    </None>
+    <None Include="res\MapTool.rc2">
+      <Filter>NewFilter1</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -138,13 +140,10 @@
     <Filter Include="NewFilter3">
       <UniqueIdentifier>{2d816d68-95bf-4302-80d0-ccd3792d2bc5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource">
-      <UniqueIdentifier>{3265df0b-3899-47f6-9792-c555b8d4e1ec}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MapTool.rc">
-      <Filter>Resource</Filter>
+      <Filter>NewFilter1</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>
