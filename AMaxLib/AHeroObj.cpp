@@ -386,12 +386,29 @@ bool	AHeroObj::Render(ID3D11DeviceContext*    pContext)
 		else
 		{
 			//if (m_pChar->m_Scene.iBindPose > 0)
-			m_pBoneObject->SetBoneMatrices(pContext, m_pMatrix, pModel->GetMatrix());
+			m_pBoneObject->SetBoneMatrices(pContext, m_pMatrix, pModel->GetMatrix());	//pModel.m_matBipedList
 			//else
 			//	m_pBoneObject->SetBoneMatrices(pContext, m_pMatrix);
 			ID3D11ShaderResourceView* aRViews[1] = { m_pBoneObject->m_pBoneBufferRV };
 			pContext->VSSetShaderResources(1, 1, aRViews);
 		}
+
+		//ASkinObj* pModel = (ASkinObj*)m_pChar->m_pModelList[iObj]->m_pModel;
+		//D3DXMATRIX* pMatrices;
+		//HRESULT hr = S_OK;
+		//D3D11_MAPPED_SUBRESOURCE MappedFaceDest;
+		//if (SUCCEEDED(pContext->Map((ID3D11Resource*)m_pBoneBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
+		//{
+		//	pMatrices = (D3DXMATRIX*)MappedFaceDest.pData;
+		//	for (DWORD dwObject = 0; dwObject < m_Scene.iNumMesh; dwObject++)	//¾À°¹¼ö°¡ ¾Æ´Ñ  ¸Å½¬ °¹¼ö
+		//	{
+		//		pMatrices[dwObject] = (*pList)[dwObject] * pMatrix[dwObject];
+		//		//pMatrices[dwObject] = (*pModel.m_matBipedList)[dwObject] * m_pMatrix[dwObject];
+		//	}
+		//	pContext->Unmap(m_pBoneBuffer, 0);
+		//}
+
+
 
 		pModel->Render(pContext);
 	}

@@ -47,7 +47,7 @@ public:
 	bool		Convert(const TCHAR* strPathName = 0);
 	bool		LoadMesh(FILE	*fp, AMesh* pMesh, SkinMesh* pData, const TCHAR* szFileName);
 
-	void		SetMatrix(D3DXMATRIX* pWorld, D3DXMATRIX* pView, D3DXMATRIX* pProj);
+//	void		SetMatrix(D3DXMATRIX* pWorld, D3DXMATRIX* pView, D3DXMATRIX* pProj);
 	bool		SetInputLayout();
 	bool		UpdateBuffer();
 	bool		CombineBuffer(ID3D11Buffer* pVB, ID3D11Buffer* pIB);

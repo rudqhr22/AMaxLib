@@ -47,7 +47,7 @@ void		ABoneObj::SetBoneMatrices(ID3D11DeviceContext*    pContext, D3DXMATRIX* pM
 	if (SUCCEEDED(pContext->Map((ID3D11Resource*)m_pBoneBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
 	{
 		pMatrices = (D3DXMATRIX*)MappedFaceDest.pData;
-		for (DWORD dwObject = 0; dwObject < m_Scene.iNumMesh; dwObject++)
+		for (DWORD dwObject = 0; dwObject < m_Scene.iNumMesh; dwObject++)	//¾À°¹¼ö°¡ ¾Æ´Ñ  ¸Å½¬ °¹¼ö
 		{
 			pMatrices[dwObject] = (*pList)[dwObject] * pMatrix[dwObject];
 		}
@@ -294,6 +294,7 @@ bool		ABoneObj::Load(ID3D11Device* pDevice,	const TCHAR* szLoadName,		const TCHA
 			{
 				//m_ppAniMatrix[ibip][jFrame] = m_pData[ibip]->m_matWorld * m_ppAniMatrix[ibip][jFrame];
 			}
+
 			if (SUCCEEDED(D3DXMatrixDecompose(&vScale, &qRotate, &vTrans, &m_ppAniMatrix[ibip][jFrame])))
 			{
 				m_ppAniQuater[ibip][jFrame] = qRotate;
@@ -302,7 +303,7 @@ bool		ABoneObj::Load(ID3D11Device* pDevice,	const TCHAR* szLoadName,		const TCHA
 			}
 			else
 			{
-				D3DXQuaternionRotationMatrix(&m_ppAniQuater[ibip][jFrame], &m_ppAniMatrix[ibip][jFrame]);
+				D3DXQuaternionRotationMatrix(&m_ppAniQuater[ibip][jFrame],&m_ppAniMatrix[ibip][jFrame]);
 			}
 		}
 	}

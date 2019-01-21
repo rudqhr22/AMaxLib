@@ -18,10 +18,16 @@ using namespace std;
 
 class SampleMfc : public ACore
 {
+	static SampleMfc* instance;
 public:
+	static SampleMfc* GetInstance()
+	{
+		return instance;
+	}
 	 ALineShape* m_pLine;// = new;
 	 DrawHelper  m_DrawHelper;
 
+	 bool m_bPlay;
 	
 public:
 	bool Init();

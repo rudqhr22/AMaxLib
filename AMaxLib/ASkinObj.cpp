@@ -45,27 +45,27 @@ bool ASkinObj::Release()
 {
 	return true;
 }
-void ASkinObj::SetMatrix(D3DXMATRIX* pWorld, D3DXMATRIX* pView, D3DXMATRIX* pProj)
-{
-	if (pWorld != NULL)
-	{
-		m_matWorld = *pWorld;
-		m_vCenter.x = pWorld->_41;
-		m_vCenter.y = pWorld->_42;
-		m_vCenter.z = pWorld->_43;
-	}
-	if (pView != NULL)
-	{
-		m_matView = *pView;
-	}
-	if (pProj != NULL)
-	{
-		m_matProj = *pProj;
-	}
-	D3DXMatrixTranspose(&cbData.matWorld, &m_matWorld);
-	D3DXMatrixTranspose(&cbData.matView, &m_matView);
-	D3DXMatrixTranspose(&cbData.matProj, &m_matProj);
-}
+//void ASkinObj::SetMatrix(D3DXMATRIX* pWorld, D3DXMATRIX* pView, D3DXMATRIX* pProj)
+//{
+//	if (pWorld != NULL)
+//	{
+//		m_matWorld = *pWorld;
+//		m_vCenter.x = pWorld->_41;
+//		m_vCenter.y = pWorld->_42;
+//		m_vCenter.z = pWorld->_43;
+//	}
+//	if (pView != NULL)
+//	{
+//		m_matView = *pView;
+//	}
+//	if (pProj != NULL)
+//	{
+//		m_matProj = *pProj;
+//	}
+//	D3DXMatrixTranspose(&cbData.matWorld, &m_matWorld);
+//	D3DXMatrixTranspose(&cbData.matView, &m_matView);
+//	D3DXMatrixTranspose(&cbData.matProj, &m_matProj);
+//}
 
 bool ASkinObj::Convert(const TCHAR* strPathName)
 {

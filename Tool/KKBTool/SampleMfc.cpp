@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SampleMfc.h"
 
+SampleMfc* SampleMfc::instance = nullptr;
 
  AModelObj*				m_ModelObj;
  ABoneObj*				m_BoneObj;
@@ -32,8 +33,8 @@ bool SampleMfc::Frame()
 		m_CharObj->m_bBoneRender = !m_CharObj->m_bBoneRender;
 	}
 
-
-	if (m_CharObj != nullptr)
+	
+	if (m_CharObj != nullptr && m_bPlay == true)
 	{
 		m_CharObj->Frame();
 
@@ -45,7 +46,7 @@ bool SampleMfc::Frame()
 
 	if (m_ModelObj != nullptr)
 	{
-		m_ModelObj->Frame();
+		//m_ModelObj->Frame();
 	}
 
 
@@ -81,6 +82,8 @@ bool SampleMfc::Release()
 
 SampleMfc::SampleMfc()
 {
+	instance = this;
+	m_bPlay = true;
 }
 
 
@@ -321,57 +324,6 @@ void AChrForm::OnBnClickedBone()
 }
 
 
-
-
-//void AChrForm::OnLbnSetfocusList1()
-//{
-//	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-//	filesystem::directory_iterator end;
-//	for (filesystem::directory_iterator iter(filesystem::current_path()); iter != end; iter++)
-//	{
-//
-//
-//
-//
-//	}
-//
-//
-//
-//}
-
-
-
-
-
-//void AChrForm::OnBnClickedCreateButton()
-//{
-//		obj = new AAseObj;
-//		obj->Load(g_pd3dDevice.Get(), m_AseFileName, _T("../Data/Shader/box.hlsl"), 0);
-//		testobj.push_back(obj);
-//	
-//		UpdateData(true);
-//
-//		MessageBox(L"파일 생성합니다!");
-//}
-
-
-//void AChrForm::OnBnClickedButton2()
-//{
-//	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-//	static TCHAR BASED_CODE szFilter[] = _T("이미지 파일(*.ASE,*.JPG) | *.ASE;*.JPG;*.ASE;*.jpg;");
-//	CFileDialog dlg(TRUE, _T("*.ase"), _T("image"), OFN_HIDEREADONLY, szFilter);
-//
-//	if (IDOK == dlg.DoModal())
-//	{
-//		m_AseFileName = dlg.GetPathName();
-//		MessageBox(L"파일 선택완료!");
-//	}
-//}
-//
-//
-
-
-//void AChrForm::OnBnClickedOk()
 //{
 //	HTREEITEM hItemCur;
 //	CString csName;
@@ -424,10 +376,35 @@ void AChrForm::OnEnChangeFrameMx()
 
 	m_iMax = _ttoi(str);
 
-	AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,
-		m_iMax);
+	AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,m_iMax);
 
 	m_CharObj->SetActionFrame(m_iMin, m_iMax);
+}
+
+void AChrForm::OnBnClickedPlayButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	SampleMfc::GetInstance()->m_bPlay = true;
+}
+
+void AChrForm::OnBnClickedStopButton()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	SampleMfc::GetInstance()->m_bPlay = false;
+}
+
+
+void AChrForm::OnNMReleasedcaptureSlider1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//int i = 0;
+	//i = m_SliderBar.GetPos();
+	//m_CharObj->m_iCurrentFrame = i;
+	//SampleMfc::GetInstance()->m_bPlay = true;
+	//AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
+	////AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,		m_iMax);
+
+	*pResult = 0;
 }
 
 
