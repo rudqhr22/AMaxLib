@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="..\Data\Shader\SkinViewer.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SampleMfc.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AEffectForm.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AEffectPane.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AMapForm.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AMapPane.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AUiForm.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AUiPane.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AChrForm.cpp">
+      <Filter>NewFilter2</Filter>
+    </ClCompile>
+    <ClCompile Include="AChrForm2.cpp">
+      <Filter>NewFilter2</Filter>
+    </ClCompile>
+    <ClCompile Include="AChrPane.cpp">
+      <Filter>NewFilter2</Filter>
+    </ClCompile>
+    <ClCompile Include="AChrPane2.cpp">
+      <Filter>NewFilter2</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>NewFilter3</Filter>
+    </ClCompile>
+    <ClCompile Include="MapTool.cpp">
+      <Filter>NewFilter3</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolDoc.cpp">
+      <Filter>NewFilter3</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolView.cpp">
+      <Filter>NewFilter3</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SampleMfc.h" />
+    <ClInclude Include="targetver.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AEffectForm.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AEffectPane.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AMapForm.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AMapPane.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AUiForm.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AUiPane.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AChrForm.h">
+      <Filter>NewFilter2</Filter>
+    </ClInclude>
+    <ClInclude Include="AChrForm2.h">
+      <Filter>NewFilter2</Filter>
+    </ClInclude>
+    <ClInclude Include="AChrPane.h">
+      <Filter>NewFilter2</Filter>
+    </ClInclude>
+    <ClInclude Include="AChrPane2.h">
+      <Filter>NewFilter2</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>NewFilter3</Filter>
+    </ClInclude>
+    <ClInclude Include="MapTool.h">
+      <Filter>NewFilter3</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolDoc.h">
+      <Filter>NewFilter3</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolView.h">
+      <Filter>NewFilter3</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MapTool.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\userimages.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\Toolbar256.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\MapToolDoc.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MapTool.rc2">
+      <Filter>Resource</Filter>
+    </None>
+    <None Include="ClassDiagram.cd">
+      <Filter>Resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{cbdc0ace-a6e4-4429-8e33-fd823066f872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NewFilter2">
+      <UniqueIdentifier>{867a57f5-e8cd-48ce-8d76-fe43156a16a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NewFilter3">
+      <UniqueIdentifier>{2d816d68-95bf-4302-80d0-ccd3792d2bc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{3265df0b-3899-47f6-9792-c555b8d4e1ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MapTool.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
