@@ -51,6 +51,7 @@ void		ABoneObj::SetBoneMatrices(ID3D11DeviceContext*    pContext, D3DXMATRIX* pM
 		for (DWORD dwObject = 0; dwObject < m_Scene.iNumMesh; dwObject++)	//¾À°¹¼ö°¡ ¾Æ´Ñ  ¸Å½¬ °¹¼ö
 		{
 			pMatrices[dwObject] = (*pList)[dwObject] * pMatrix[dwObject];
+			m_pMesh[dwObject]->m_matWorld = (*pList)[dwObject] * pMatrix[dwObject];
 		}
 		pContext->Unmap(m_pBoneBuffer, 0);
 	}
@@ -131,7 +132,7 @@ bool		ABoneObj::Frame()
 		m_iCurrentFrame = m_iStartFrame;
 		m_fElapseTime = (float)m_iStartFrame;// + fElapsedTime;		
 	}
-	SetBoneMatrices(g_pImmediateContext.Get());
+	//SetBoneMatrices(g_pImmediateContext.Get());
 	return true;
 }
 	
@@ -226,7 +227,7 @@ bool		ABoneObj::Load(ID3D11Device* pDevice,	const TCHAR* szLoadName,		const TCHA
 		TCHAR szBuffer[256] = { 0, };
 		TCHAR szName[256] = { 0, };
 		TCHAR szParentName[256] = { 0, };
-		fread(&pMesh->m_ClassType, sizeof(int), 1, fp);-
+		fread(&pMesh->m_ClassType, sizeof(int), 1, fp);
 		fread(&iCount, sizeof(int), 1, fp);
 		fread(szName, sizeof(TCHAR) * iCount, 1, fp);
 

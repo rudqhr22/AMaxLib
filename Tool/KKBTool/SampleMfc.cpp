@@ -247,6 +247,8 @@ void AChrForm::OnBnClickedButtonChar()
 
 
 
+
+
 		if (strParent == L"" ||strParent != L"장면 루트")
 		{
 
@@ -272,6 +274,31 @@ void AChrForm::OnBnClickedButtonChar()
 		{
 			prevParent;
 		}
+	}
+}
+
+
+void AChrForm2::RecursiveFunction(HTREEITEM hItem)
+{
+	//if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName == L"")
+	//{
+	//	return;
+	//}
+
+	while (hItem)
+	{
+		// 수행할 기능 추가
+
+		// 자식 노드 존재 확인
+		if (m_TreeList.ItemHasChildren(hItem))
+		{
+
+			// 재귀함수 다시 호출
+			RecursiveFunction(m_TreeList.GetChildItem(hItem));
+		}
+
+		// 자식 노드가 없으면 형제 노드 사용
+		hItem = m_TreeList.GetNextSiblingItem(hItem);
 	}
 }
 
@@ -311,27 +338,7 @@ void AChrForm::OnBnClickedButtonChar()
 //	}
 //}
 
-void AChrForm2::RecursiveFunction(HTREEITEM hItem)
-{
-	if (hItem == NULL) return;
 
-	while (hItem) 
-	{
-			// 수행할 기능 추가
-
-			// 자식 노드 존재 확인
-
-			if (m_TreeList.ItemHasChildren(hItem)) 
-			{
-
-				// 재귀함수 다시 호출
-				RecursiveFunction(m_TreeList.GetChildItem(hItem));
-			}
-
-		// 자식 노드가 없으면 형제 노드 사용
-		hItem = m_TreeList.GetNextSiblingItem(hItem);
-	}
-}
 
 
 
