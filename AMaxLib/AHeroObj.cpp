@@ -18,10 +18,6 @@
 //	aabbCollide = false;
 //
 //}
-//
-//
-//
-//
 //void AHeroObj::CheckOBBInPlane(A_Box&  targetBox)
 //{
 //	
@@ -357,7 +353,6 @@ bool	AHeroObj::RenderInstancing(ID3D11DeviceContext*    pContext)
 			ID3D11ShaderResourceView* aRViews[1] = { m_pBoneObject->m_pBoneBufferRV };
 			pContext->VSSetShaderResources(1, 1, aRViews);
 		}
-
 		pModel->RenderInstancing(pContext);
 
 	}
@@ -408,17 +403,15 @@ bool	AHeroObj::Render(ID3D11DeviceContext*    pContext)
 		//	pContext->Unmap(m_pBoneBuffer, 0);
 		//}
 
-
-
 		pModel->Render(pContext);
 	}
 	// 본 오브젝트 랜더링
-	//if (m_bBoneRender)
-	//{
-	//	memcpy(m_pBoneObject->m_pMatrix, m_pMatrix, m_pBoneObject->m_Scene.iNumMesh * sizeof(D3DXMATRIX));
-	//	m_pBoneObject->SetMatrix(&m_matWorld, &m_matView, &m_matProj);
-	//	m_pBoneObject->Render(pContext);
-	//}
+	if (m_bBoneRender==true)
+	{
+		memcpy(m_pBoneObject->m_pMatrix, m_pMatrix, m_pBoneObject->m_Scene.iNumMesh * sizeof(D3DXMATRIX));
+		m_pBoneObject->SetMatrix(&m_matWorld, &m_matView, &m_matProj);
+		m_pBoneObject->Render(pContext);
+	}
 	return true;
 }
 

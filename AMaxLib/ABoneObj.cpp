@@ -225,7 +225,7 @@ bool		ABoneObj::Load(ID3D11Device* pDevice,	const TCHAR* szLoadName,		const TCHA
 		TCHAR szBuffer[256] = { 0, };
 		TCHAR szName[256] = { 0, };
 		TCHAR szParentName[256] = { 0, };
-		fread(&pMesh->m_ClassType, sizeof(int), 1, fp);
+		fread(&pMesh->m_ClassType, sizeof(int), 1, fp);-
 		fread(&iCount, sizeof(int), 1, fp);
 		fread(szName, sizeof(TCHAR) * iCount, 1, fp);
 

@@ -41,6 +41,7 @@ m_CharObj.Frame();
 
 bool		Sample::Render()
 {//
+	m_CharObj.m_bBoneRender = true;
 	m_CharObj.SetMatrix(0, m_pMainCamera->GetViewMatrix(), m_pMainCamera->GetProjMatrix());
 	m_CharObj.Render(m_pImmediateContext.Get());
 
