@@ -231,7 +231,6 @@ INT AHeroObj::GetPlayerPosZ()
 	return m_vCenter.z;
 }
 
-
 bool AHeroObj::SetPlayerCharacter(const TCHAR* fileName, float x , float y, float z)
 {
 	m_pChar = I_CHARMGR.GetPtr(fileName);
@@ -253,8 +252,6 @@ bool AHeroObj::SetPlayerCharacter(const TCHAR* fileName, float x , float y, floa
 	return true;
 }
 
-
-
 bool AHeroObj::CreateConstantBuffer()
 {
 	HRESULT hr = S_OK;
@@ -265,7 +262,6 @@ bool AHeroObj::CreateConstantBuffer()
 	Desc.MiscFlags = 0;
 	Desc.ByteWidth = sizeof(CBConstBoneWorld);
 	hr = g_pd3dDevice->CreateBuffer(&Desc, NULL, m_pCBConstBoneWorld.GetAddressOf());
-
 
 	return true;
 }
@@ -288,11 +284,16 @@ bool		AHeroObj::SetANIM(const TCHAR* szName)
 	SetActionFrame(0, 0);
 
 	m_pBoneObject = (ABoneObj*)I_OBJMGR.GetPtr(szName);
+
+	//ABoneObj* pBoneIbj = (ABoneObj*)I_OBJMGR.GetPtr(szName);
+
+
 	if (m_pBoneObject == nullptr) { 
 		return false; }
-	SetActionFrame(
-		m_pBoneObject->m_Scene.iFirstFrame,
+	
+	SetActionFrame(	m_pBoneObject->m_Scene.iFirstFrame,
 		m_pBoneObject->m_Scene.iLastFrame);
+
 	return true;
 }
 
@@ -321,8 +322,6 @@ bool		AHeroObj::Frame()
 		m_iCurrentFrame = m_iStartFrame;
 		m_fFrame = (float)m_iStartFrame + m_fLerpTime;
 	}
-
-
 
 	return true;
 }

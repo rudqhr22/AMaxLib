@@ -46,9 +46,6 @@
     <ClCompile Include="AFrustum.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="AHeroObj.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="AInput.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
     <ClCompile Include="ASkinObj.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="AHeroObj.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="A_BoxObj.h">
@@ -166,9 +166,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="AFrustum.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="AHeroObj.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="AInput.h">
@@ -241,6 +238,9 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="ASkinObj.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="AHeroObj.h">
       <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>

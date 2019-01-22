@@ -21,6 +21,7 @@ void		ABoneObj::SetBoneMatrices(ID3D11DeviceContext*    pContext)
 		pContext->Unmap(m_pBoneBuffer, 0);
 	}
 }
+
 //pMatrix  를 사용하여 상수버퍼를 갱신한다.
 void		ABoneObj::SetBoneMatrices(ID3D11DeviceContext*    pContext, D3DXMATRIX* pMatrix)
 {
@@ -54,9 +55,9 @@ void		ABoneObj::SetBoneMatrices(ID3D11DeviceContext*    pContext, D3DXMATRIX* pM
 		pContext->Unmap(m_pBoneBuffer, 0);
 	}
 }
+
 bool		ABoneObj::AniFrame(FLOAT fCurFrame, FLOAT fElapsedTime,	int iFirstFrame, int iLastFrame,	D3DXMATRIX* pMatrix)
 {
-
 	if (pMatrix == NULL)
 	{
 		pMatrix = m_pMatrix;

@@ -229,7 +229,7 @@ void AChrForm::OnBnClickedButtonChar()
 
 	TCHAR szItem[256];
 
-
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
 	TVITEM tvItem;
 	tvItem.cchTextMax = 256;
@@ -244,6 +244,15 @@ void AChrForm::OnBnClickedButtonChar()
 		{
 			top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
 		}
+
+
+
+		if (strParent == L"" ||strParent != L"장면 루트")
+		{
+
+		}
+
+
 		else
 		{
 			//AChrForm2::GetInstance()->RecursiveFunction(top);
@@ -255,11 +264,7 @@ void AChrForm::OnBnClickedButtonChar()
 			{
 				top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
 			}
-			
 		}
-
-
-
 		if (prevParent != strParent) {
 			prevParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
 		}
@@ -270,6 +275,41 @@ void AChrForm::OnBnClickedButtonChar()
 	}
 }
 
+
+//AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
+//TVITEM tvItem;
+//tvItem.cchTextMax = 256;
+//tvItem.pszText = szItem;
+//tvItem.mask = TVIF_TEXT | TVIF_HANDLE;
+//for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+//{
+//	auto strNode = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
+//	auto strParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
+//
+//	if (strParent == L"" || strParent == L"장면 루트")
+//	{
+//		top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+//	}
+//	else
+//	{
+//		//AChrForm2::GetInstance()->RecursiveFunction(top);
+//		if (prevParent == strParent)
+//		{
+//			AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+//		}
+//		else
+//		{
+//			top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+//		}
+//	}
+//	if (prevParent != strParent) {
+//		prevParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
+//	}
+//	else
+//	{
+//		prevParent;
+//	}
+//}
 
 void AChrForm2::RecursiveFunction(HTREEITEM hItem)
 {
