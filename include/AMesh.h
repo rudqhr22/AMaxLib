@@ -90,6 +90,8 @@ public:
 	int   m_iMtrlRef;
 
 	AMesh*								m_pParent;
+	AMesh*								m_pChild;
+
 
 	int									m_iNumFace;
 	int									m_iDiffuseTex;

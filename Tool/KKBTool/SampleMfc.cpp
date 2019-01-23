@@ -179,6 +179,52 @@ void AChrForm::OnLbnDblclkList1()
 	m_iMax = m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
 }
 
+//부모이름을 찾아서 구분함
+AMesh* SearchToCollects(T_STR	m_strParentName)
+{
+	for (DWORD dwGroup = 0; dwGroup < m_CharObj->m_pBoneObject->m_pMesh.size(); dwGroup++)
+	{
+		if (m_CharObj->m_pBoneObject->m_pMesh[dwGroup]->m_strNodeName == m_strParentName)
+		{
+			return  m_CharObj->m_pBoneObject->m_pMesh[dwGroup];
+		}
+	}
+	return NULL;
+}
+
+
+HTREEITEM FindTreeData(CTreeCtrl* pTree, HTREEITEM hItem, DWORD dwData)
+{
+	HTREEITEM hitemFind, hItemChile, hItemSibling;
+	hitemFind = hItemChile = hItemSibling = NULL;
+
+	AChrForm2::GetInstance()->m_TreeList;
+
+	if (AChrForm2::GetInstance()->m_TreeList.GetItemData(hItem) == dwData)
+	{
+		hitemFind = hItem;
+	}
+	else
+	{
+		// 자식 노드를 찾는다.
+		hItemChile = AChrForm2::GetInstance()->m_TreeList.GetChildItem(hItem);
+		if (hItemChile)
+		{
+			hitemFind = FindTreeData(&AChrForm2::GetInstance()->m_TreeList, hItemChile, dwData);
+
+		}
+
+		// 형제노드를 찾는다.
+		hItemSibling = AChrForm2::GetInstance()->m_TreeList.GetNextSiblingItem(hItem);
+		if (hitemFind == NULL && hItemSibling)
+		{
+			hitemFind = FindTreeData(&AChrForm2::GetInstance()->m_TreeList, hItemSibling, dwData);
+		}
+	}
+
+	return hitemFind;
+}
+
 
 void AChrForm::OnBnClickedButtonChar()
 {
@@ -211,9 +257,7 @@ void AChrForm::OnBnClickedButtonChar()
 	m_CharObj->m_pBoneObject = m_CharObj->m_pChar->m_pBoneObject;
 	m_CharObj->SetActionFrame(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 	
-	AChrForm::GetInstance()->m_SliderBar.SetRange(
-		m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
-		m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	AChrForm::GetInstance()->m_SliderBar.SetRange(		m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,		m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 	AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
 	m_iMin = m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
 	m_iMax = m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
@@ -221,61 +265,69 @@ void AChrForm::OnBnClickedButtonChar()
 
 	AChrForm2::GetInstance()->m_TreeList;
 
-
-	HTREEITEM top=0;
-	HTREEITEM top2=0;
-	T_STR prevParent;
-	T_STR prevNode;
-
-	TCHAR szItem[256];
-
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
-	TVITEM tvItem;
-	tvItem.cchTextMax = 256;
-	tvItem.pszText = szItem;
-	tvItem.mask = TVIF_TEXT | TVIF_HANDLE;
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++) 
+
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
 	{
-		auto strNode  = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
-		auto strParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
-		
-		if (strParent == L""|| strParent== L"장면 루트")
+		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
+
+		if (!pPoint->m_strParentName.empty())
 		{
-			top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
-		}
-
-
-
-
-
-		if (strParent == L"" ||strParent != L"장면 루트")
-		{
-
-		}
-
-
-		else
-		{
-			//AChrForm2::GetInstance()->RecursiveFunction(top);
-			if (prevParent== strParent)
+			auto* pParentNode = SearchToCollects(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName);
+			if (pParentNode)
 			{
-				AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
+				pPoint->m_pParent = pParentNode;
+				pParentNode->m_pChild = pPoint;
 			}
-			else
-			{
-				top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
-			}
-		}
-		if (prevParent != strParent) {
-			prevParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
-		}
-		else
-		{
-			prevParent;
 		}
 	}
+
+	
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	{
+		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
+		if (!pPoint->m_strParentName.empty())
+		{
+			auto* pParentNode = SearchToCollects(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName);
+
+
+			if (pParentNode)
+			{
+
+			}
+		}
+		else
+		{
+			HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+
+			//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
+			int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
+			//AChrForm2::GetInstance()->m_TreeList.getitem
+
+		}
+
+
+
+		//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+
+
+
+
+
+
+
+		//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
+		//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
+
+
+
+	}
+
+
 }
+
+
 
 
 void AChrForm2::RecursiveFunction(HTREEITEM hItem)
