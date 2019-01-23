@@ -3,6 +3,7 @@
 
 SampleMfc* SampleMfc::instance = nullptr;
 
+map<int, TreeMesh> m_TreeList;
  AModelObj*				m_ModelObj;
  ABoneObj*				m_BoneObj;
  AHeroObj*				m_CharObj;
@@ -91,27 +92,8 @@ SampleMfc::~SampleMfc()
 {
 }
 
-//void AChrForm::OnBnClickedFileOpen()
-//{
-//
-//	//static TCHAR BASED_CODE szFilter[] = _T("이미지 파일(*.ASE,*.JPG) | *.ASE;*.JPG;*.ASE;*.jpg;");
-//	//CFileDialog dlg(TRUE, _T("*.ase"), _T("image"), OFN_HIDEREADONLY, szFilter);
-//
-//
-//	static TCHAR BASED_CODE szFilter[] = _T("이미지 파일(*.skm) | *.SKM; *.skm;");
-//	CFileDialog fileDlg(TRUE, _T("*.skm"), 0, OFN_HIDEREADONLY, szFilter);
-//
-//
-//	if (IDOK == fileDlg.DoModal())
-//	{
-//		m_AseFileName = fileDlg.GetPathName();
-//	}
-//
-//	m_ModelObj = new AModelObj;
-//	m_ModelObj->Load(g_pd3dDevice.Get(), m_AseFileName, _T("../Data/Shader/SkinViewer.hlsl"), 0);
-//
-//
-//}
+
+
 
 
 
@@ -226,6 +208,39 @@ HTREEITEM FindTreeData(CTreeCtrl* pTree, HTREEITEM hItem, DWORD dwData)
 }
 
 
+void MakeTreeList(AMesh* pMesh)
+{
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	{
+		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
+		m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
+
+
+		if (pPoint->m_strParentName == L"" || pPoint->m_strParentName == L"장면 루트")
+		{
+
+		}
+
+
+		m_TreeList;
+	}
+
+
+}
+
+//for (i = 0; i < sizeof(arCity) / sizeof(arCity[0]); i++)
+//{
+//	if (arCity[i].Parent == Parent) 
+//	{
+//		for (j = 0; j < indent; j++) putch(' ');
+//		if (HaveChild(i)) 
+//		{
+//			PrintCity(i, indent + 2);
+//		}
+//	}
+//}
+
+
 void AChrForm::OnBnClickedButtonChar()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -283,32 +298,23 @@ void AChrForm::OnBnClickedButtonChar()
 		}
 	}
 
+
+
+
+
 	
 	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
 	{
 		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
-		if (!pPoint->m_strParentName.empty())
-		{
-			auto* pParentNode = SearchToCollects(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName);
-
-
-			if (pParentNode)
-			{
-
-			}
-		}
-		else
-		{
-			HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-
-			//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
-			int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
-			//AChrForm2::GetInstance()->m_TreeList.getitem
-
-		}
 
 
 
+
+
+		//HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+		//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
+		//int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
+		//AChrForm2::GetInstance()->m_TreeList.getitem
 		//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
 
 
@@ -317,8 +323,8 @@ void AChrForm::OnBnClickedButtonChar()
 
 
 
-		//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
-		//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
+	//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
+	//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
 
 
 

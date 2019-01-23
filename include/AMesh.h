@@ -89,6 +89,7 @@ public:
 	int   m_iNumTrack[4];
 	int   m_iMtrlRef;
 
+	int									m_iTreeDepth;
 	AMesh*								m_pParent;
 	AMesh*								m_pChild;
 

@@ -16,6 +16,21 @@
 using namespace std;
 
 
+
+class ATreeMesh
+{
+public:
+	T_STR			 m_strName;
+	ATreeMesh*	     m_pParent;
+	list<ATreeMesh> m_ChildList;
+
+public:
+	ATreeMesh() {};
+	~ATreeMesh() {};
+};
+
+
+
 class SampleMfc : public ACore
 {
 	static SampleMfc* instance;
@@ -29,6 +44,8 @@ public:
 
 	 bool m_bPlay;
 	
+
+
 public:
 	bool Init();
 
