@@ -63,15 +63,15 @@ FILE_TYPE	AObjMgr::GetFileTypeID(const TCHAR* pszFileName)
 		pModelObj->m_ObjType = ASEFILE;
 		return ASEFILE;
 	}
-	if (!_tcsicmp(Ext, _T(".kkb")))
-	{
-		AModel* pModelObj = NULL;
-		pModelObj = new kkbObj;
-		_ASSERT(pModelObj);
-		m_pModelObj = pModelObj;
-		pModelObj->m_ObjType = KKBFILE;
-		return KKBFILE;
-	}
+	//if (!_tcsicmp(Ext, _T(".kkb")))
+	//{
+	//	AModel* pModelObj = NULL;
+	//	pModelObj = new kkbObj;
+	//	_ASSERT(pModelObj);
+	//	m_pModelObj = pModelObj;
+	//	pModelObj->m_ObjType = KKBFILE;
+	//	return KKBFILE;
+	//}
 	if (!_tcsicmp(Ext, _T(".SKM")))
 	{
 		AModel* pModelObj = NULL;

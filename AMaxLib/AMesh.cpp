@@ -137,8 +137,8 @@ AMesh::AMesh()
 	D3DXMatrixIdentity(&m_matWorldRotate);
 	D3DXMatrixIdentity(&m_matWorldScale);
 	D3DXMatrixIdentity(&m_matCalculation);
-	m_bUnAnimObj = false;
-	m_bSelect = false;
+//	m_bUnAnimObj = false;
+//	m_bSelect = false;
 }
 
 

@@ -79,10 +79,11 @@ struct IsTriangleSame5
 class AMesh : public AModel
 {
 public:
-	int						m_iIndex;
+	//int						m_iIndex;
 
 	T_STR								m_strNodeName;
 	T_STR								m_strParentName;
+	vector<AMesh*>						m_pChildMesh;
 
 	int iSubIndex;
 
@@ -103,7 +104,7 @@ public:
 	ComPtr<ID3D11ShaderResourceView>	m_pTextureSRV;
 
 	vector<AMesh*>				m_pSubMesh;
-	vector<AMesh*>				m_pChildMesh;
+
 
 
 
@@ -130,15 +131,13 @@ public:
 
 
 	A_Box					m_Box;
-	bool					m_bSelect;
-
+	//bool					m_bSelect;
 	int						m_iNumMtrl;
 	int						m_iNumVertexs;
 	int						m_iNumTex;
 	int						m_iTexType[13];
 	TCHAR					m_szTexName[13][30];
-
-	ComPtr<ID3D11CommandList>      m_pd3dCommandList;
+	//ComPtr<ID3D11CommandList>      m_pd3dCommandList;
 public:
 
 	int IsEqulVertex(vector<PNCT_VERTEX>&  VertexArray, PNCT_VERTEX& Vertex);

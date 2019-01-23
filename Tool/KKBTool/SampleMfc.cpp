@@ -3,7 +3,7 @@
 
 SampleMfc* SampleMfc::instance = nullptr;
 
-map<int, TreeMesh> m_TreeList;
+
  AModelObj*				m_ModelObj;
  ABoneObj*				m_BoneObj;
  AHeroObj*				m_CharObj;
@@ -207,38 +207,27 @@ HTREEITEM FindTreeData(CTreeCtrl* pTree, HTREEITEM hItem, DWORD dwData)
 	return hitemFind;
 }
 
-
-void MakeTreeList(AMesh* pMesh)
+int icnt = 0;
+void MakeTreeList(AMesh* pMesh , HTREEITEM item)
 {
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	if (pMesh->m_pChildMesh.size() <= 0)
 	{
-		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
-		m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
+		return;
+	}
 
-
-		if (pPoint->m_strParentName == L"" || pPoint->m_strParentName == L"장면 루트")
+	while (item !=NULL)
+	{
+		HTREEITEM Item = AChrForm2::GetInstance()->m_TreeList.InsertItem(pMesh->m_strNodeName.c_str(), 0, 0, item, TVI_LAST);
+		if (pMesh->m_pChildMesh.size() <= icnt)
 		{
-
+			icnt = 0;
 		}
-
-
-		m_TreeList;
+		MakeTreeList(pMesh->m_pChildMesh[icnt++], Item);
+		
 	}
 
 
 }
-
-//for (i = 0; i < sizeof(arCity) / sizeof(arCity[0]); i++)
-//{
-//	if (arCity[i].Parent == Parent) 
-//	{
-//		for (j = 0; j < indent; j++) putch(' ');
-//		if (HaveChild(i)) 
-//		{
-//			PrintCity(i, indent + 2);
-//		}
-//	}
-//}
 
 
 void AChrForm::OnBnClickedButtonChar()
@@ -255,7 +244,7 @@ void AChrForm::OnBnClickedButtonChar()
 
 	I_CHARMGR.Init();
 	I_CHARMGR.Load(g_pd3dDevice.Get(), g_pImmediateContext.Get(), m_StrChar);
-	
+
 	m_CharObj = new AHeroObj;
 
 	if (m_ModelObj != nullptr)
@@ -268,11 +257,11 @@ void AChrForm::OnBnClickedButtonChar()
 
 	m_CharObj->m_pChar = I_CHARMGR.GetPtr(0);
 	m_ModelObj->Load(g_pd3dDevice.Get(), m_CharObj->m_pChar->m_pModelList[0]->m_pModel->m_szName.c_str(), _T("../../Data/Shader/SkinViewer.hlsl"), 0);
-	
+
 	m_CharObj->m_pBoneObject = m_CharObj->m_pChar->m_pBoneObject;
 	m_CharObj->SetActionFrame(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
-	
-	AChrForm::GetInstance()->m_SliderBar.SetRange(		m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,		m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+
+	AChrForm::GetInstance()->m_SliderBar.SetRange(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 	AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
 	m_iMin = m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
 	m_iMax = m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
@@ -293,45 +282,39 @@ void AChrForm::OnBnClickedButtonChar()
 			if (pParentNode)
 			{
 				pPoint->m_pParent = pParentNode;
-				pParentNode->m_pChild = pPoint;
+				pParentNode->m_pChildMesh.push_back(pPoint);
 			}
+		}
+	}
+
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	{
+		if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
+		{
+			HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+
+			MakeTreeList(m_CharObj->m_pBoneObject->m_pMesh[i], rootItem);
+			break;
 		}
 	}
 
 
 
 
+	//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
+	//int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
+	//AChrForm2::GetInstance()->m_TreeList.getitem
+	//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
 
-	
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
-	{
-		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
+//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
+//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
 
-
-
-
-
-		//HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-		//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
-		//int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
-		//AChrForm2::GetInstance()->m_TreeList.getitem
-		//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-
-
-
-
-
-
-
-	//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
-	//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
-
-
-
-	}
 
 
 }
+
+
+
 
 
 

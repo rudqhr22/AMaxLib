@@ -82,20 +82,19 @@ public:
 
 	//D3DXVECTOR3 m_vPos;
 public:
+
 	ComPtr<ID3D11Device>			m_pd3dDevice;
-
-
 	ARECT						 m_rtPos;
 	DX::ADxObject				 m_dxObj;
 	
-	bool						 m_bNamePass;
+
 
 	VS_CONSTANT_BUFFER			 cbData;
 
 	vector<AMesh*>	m_pMesh;
 
-	vector<PT_VERTEX>			 m_PTList;
-	vector<PCT_VERTEX>			 m_PCTList;
+	//vector<PT_VERTEX>			 m_PTList;
+	//vector<PCT_VERTEX>		 m_PCTList;
 	vector<PNCT_VERTEX>			 m_PNCTList;
 	vector<DWORD>				 m_IndexList;
 

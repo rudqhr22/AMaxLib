@@ -10,14 +10,14 @@ bool AModelObj::Set(ID3D11Device* pd3dDevice, int iIndex)
 
 	// 멀티 스레드로 처리되기 때문에 오브젝트 단위로 에미메이션 및 최종 행렬(인덱스)을 별도로 저장해 둔다. 
 	ObjWM* pWM = new ObjWM(pModel->m_pMesh.size());
-	for (DWORD dwObject = 0; dwObject < pModel->m_pMesh.size(); dwObject++)
-	{
-		pWM->m_iParent[dwObject] = -1;
-		if (pModel->m_pMesh[dwObject]->m_pParent)
-		{
-			pWM->m_iParent[dwObject] = pModel->m_pMesh[dwObject]->m_pParent->m_iIndex;
-		}
-	}
+	//for (DWORD dwObject = 0; dwObject < pModel->m_pMesh.size(); dwObject++)
+	//{
+	//	pWM->m_iParent[dwObject] = -1;
+	//	if (pModel->m_pMesh[dwObject]->m_pParent)
+	//	{
+	//		pWM->m_iParent[dwObject] = pModel->m_pMesh[dwObject]->m_pParent->m_iIndex;
+	//	}
+	//}
 	pWM->m_pModel = pModel;
 	pWM->m_Scene = pModel->m_Scene;
 	m_pModelList.push_back(pWM);
@@ -167,7 +167,7 @@ bool AModelObj::Draw(ID3D11DeviceContext* pContext, ObjWM* pUint, bool bCommand)
 				pContext->DrawIndexed(pSubMesh->m_dxObj.m_iNumIndex,
 					pSubMesh->m_dxObj.m_iBeginIB,
 					pSubMesh->m_dxObj.m_iBeginVB);
-				if (bCommand) 	SetCommmandList(pContext, pSubMesh, true);
+		//		if (bCommand) 	SetCommmandList(pContext, pSubMesh, true);
 			}
 		}
 		else
@@ -177,7 +177,7 @@ bool AModelObj::Draw(ID3D11DeviceContext* pContext, ObjWM* pUint, bool bCommand)
 			pContext->DrawIndexed(pMesh->m_dxObj.m_iNumIndex,
 				pMesh->m_dxObj.m_iBeginIB,
 				pMesh->m_dxObj.m_iBeginVB);
-			if (bCommand) 	SetCommmandList(pContext, pMesh, true);
+//			if (bCommand) 	SetCommmandList(pContext, pMesh, true);
 		}
 	}
 	
@@ -288,71 +288,71 @@ void AModelObj::SetActionFrame(TCHAR* pStrModel, DWORD dwStrat, DWORD dwEnd)
 //	return true;
 //}
 
-bool AModelObj::CommandRender(ID3D11DeviceContext* pContext)
-{
-
-	for (int iModel = 0; iModel < m_pModelList.size(); iModel++)
-	{
-		ObjWM* pUnit = m_pModelList[iModel];
-		CommandDraw(pContext, pUnit);
-	}
-
-	/*for (int iObj = 0; iObj < m_pSubObjList.size(); iObj++)
-	{
-	AModelObj* pObj = m_pSubObjList[iObj].get();
-	_ASSERT(pObj);
-	pObj->CommandRender(pContext);
-	}*/
-	return true;
-}
-
-bool AModelObj::CommandDraw(ID3D11DeviceContext* pContext, ObjWM* pUnit)
-{
-	HRESULT hr;
-	AModel* pModel = pUnit->m_pModel;
-	for (DWORD iMesh = 0; iMesh < pModel->m_pMesh.size(); iMesh++)
-	{
-		SetConstantBuffers(pContext, pUnit, iMesh);
-
-		if (pModel->m_pMesh[iMesh]->m_pSubMesh.size() > 0)
-		{
-			for (DWORD dwSubCount = 0; dwSubCount < pModel->m_pMesh[iMesh]->m_pSubMesh.size(); dwSubCount++)
-			{
-				AMesh* pSubMesh = (AMesh*)pModel->m_pMesh[iMesh]->m_pSubMesh[dwSubCount];
-				if (pSubMesh->m_iNumFace <= 0) continue;
-				ExecuteCommandList(pContext, pSubMesh, false);
-			}
-		}
-		else
-		{
-			if (pModel->m_pMesh[iMesh]->m_iNumFace <= 0) continue;
-			ExecuteCommandList(pContext, pModel->m_pMesh[iMesh], false);
-		}
-	}
-
-	return true;
-}
-
-HRESULT AModelObj::SetCommmandList(ID3D11DeviceContext* pContext, AMesh* pSubMesh, bool bSave)
-{
-	HRESULT hr = S_OK;
-	if (pContext)
-	{
-		return pContext->FinishCommandList(bSave, &pSubMesh->m_pd3dCommandList);
-	}
-	return E_FAIL;
-}
-
-void AModelObj::ExecuteCommandList(ID3D11DeviceContext* pContext, AMesh* pMesh, bool bClear)
-{
-	assert(pMesh && pMesh->m_pd3dCommandList != nullptr);
-	pContext->ExecuteCommandList(pMesh->m_pd3dCommandList.Get(), !bClear);
-
-	if (bClear)
-	{
-		pMesh->m_pd3dCommandList.ReleaseAndGetAddressOf();
-	}
-}
+//bool AModelObj::CommandRender(ID3D11DeviceContext* pContext)
+//{
+//
+//	for (int iModel = 0; iModel < m_pModelList.size(); iModel++)
+//	{
+//		ObjWM* pUnit = m_pModelList[iModel];
+//		CommandDraw(pContext, pUnit);
+//	}
+//
+//	/*for (int iObj = 0; iObj < m_pSubObjList.size(); iObj++)
+//	{
+//	AModelObj* pObj = m_pSubObjList[iObj].get();
+//	_ASSERT(pObj);
+//	pObj->CommandRender(pContext);
+//	}*/
+//	return true;
+//}
+//
+//bool AModelObj::CommandDraw(ID3D11DeviceContext* pContext, ObjWM* pUnit)
+//{
+//	HRESULT hr;
+//	AModel* pModel = pUnit->m_pModel;
+//	for (DWORD iMesh = 0; iMesh < pModel->m_pMesh.size(); iMesh++)
+//	{
+//		SetConstantBuffers(pContext, pUnit, iMesh);
+//
+//		if (pModel->m_pMesh[iMesh]->m_pSubMesh.size() > 0)
+//		{
+//			for (DWORD dwSubCount = 0; dwSubCount < pModel->m_pMesh[iMesh]->m_pSubMesh.size(); dwSubCount++)
+//			{
+//				AMesh* pSubMesh = (AMesh*)pModel->m_pMesh[iMesh]->m_pSubMesh[dwSubCount];
+//				if (pSubMesh->m_iNumFace <= 0) continue;
+//				ExecuteCommandList(pContext, pSubMesh, false);
+//			}
+//		}
+//		else
+//		{
+//			if (pModel->m_pMesh[iMesh]->m_iNumFace <= 0) continue;
+//			ExecuteCommandList(pContext, pModel->m_pMesh[iMesh], false);
+//		}
+//	}
+//
+//	return true;
+//}
+//
+//HRESULT AModelObj::SetCommmandList(ID3D11DeviceContext* pContext, AMesh* pSubMesh, bool bSave)
+//{
+//	HRESULT hr = S_OK;
+//	if (pContext)
+//	{
+//		return pContext->FinishCommandList(bSave, &pSubMesh->m_pd3dCommandList);
+//	}
+//	return E_FAIL;
+//}
+//
+//void AModelObj::ExecuteCommandList(ID3D11DeviceContext* pContext, AMesh* pMesh, bool bClear)
+//{
+//	assert(pMesh && pMesh->m_pd3dCommandList != nullptr);
+//	pContext->ExecuteCommandList(pMesh->m_pd3dCommandList.Get(), !bClear);
+//
+//	if (bClear)
+//	{
+//		pMesh->m_pd3dCommandList.ReleaseAndGetAddressOf();
+//	}
+//}
 
 AModelObj::AModelObj(void)
 {

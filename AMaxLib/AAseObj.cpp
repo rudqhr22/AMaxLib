@@ -1238,3 +1238,4 @@ AAnimation::AAnimation(void)
 AAnimation::~AAnimation(void)
 {
 }
+
