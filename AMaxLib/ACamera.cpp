@@ -46,8 +46,6 @@ bool ACamera::SetViewMatrix(D3DXVECTOR3 vPos,D3DXVECTOR3 vTarget,D3DXVECTOR3 vUp
 	
 	//Yaw값 
 	m_fCameraYawAngle = atan2f(pZBasis->x, pZBasis->z);		
-	
-															
 	//Pitch값   //길이
 	float fLen = sqrtf(pZBasis->z * pZBasis->z + pZBasis->x * pZBasis->x);
 	m_fCameraPitchAngle = -atan2f(pZBasis->y, fLen);	//-가 붙어야 한다.
@@ -200,7 +198,7 @@ bool ACamera::Frame()
 	////	&m_vPos, // 카메라 위치
 	////	&m_vTarget, // 카메라 타켓
 	////	&m_vUp);
-	
+
 	//m_vLook.x = m_matView._13;
 	//m_vLook.y = m_matView._23;
 	//m_vLook.z = m_matView._33;
@@ -213,7 +211,7 @@ bool ACamera::Frame()
 	//D3DXVec3Normalize(&m_vLook, &m_vLook);
 	//D3DXVec3Normalize(&m_vSide, &m_vSide);
 	//D3DXVec3Normalize(&m_vUp, &m_vUp);
-	
+
 	//m_matView._41 = -D3DXVec3Dot(&m_vPos, &m_vSide);
 	//m_matView._42 = -D3DXVec3Dot(&m_vPos, &m_vUp);
 	//m_matView._43 = -D3DXVec3Dot(&m_vPos, &m_vLook);
@@ -230,7 +228,7 @@ bool ACamera::Frame()
 	// 카메라 이동 거리 = 속도 + ( 경과시간 * 마우스 휠 변위값 )
 	float fValue = g_InputData.iMouseValue[2];
 	float fDistance = m_fSpeed * fValue * g_fSPF;
-	
+
 	if (g_InputData.bSpace)	m_fSpeed += g_fSPF * 10.0f;
 	else						m_fSpeed -= g_fSPF * 10.0f;
 	// 최소값으로 고정
@@ -238,8 +236,29 @@ bool ACamera::Frame()
 
 	if (g_InputData.bWKey)		MoveLook(g_fSPF * 5.0f * m_fSpeed);
 	if (g_InputData.bSKey)		MoveLook(-g_fSPF * 5.0f* m_fSpeed);
+
 	if (g_InputData.bDKey)		MoveSide(g_fSPF * 5.0f* m_fSpeed);
 	if (g_InputData.bAKey)		MoveSide(-g_fSPF * 5.0f* m_fSpeed);
+
+
+	//if (g_InputData.bDKey) 
+	//{ 
+	//	//MoveSide(g_fSPF * 5.0f* m_fSpeed); 
+	//	//D3DXToRadian(g_fSPF * 5.0f *m_fSpeed);
+	//	//D3DXMatrixRotationZ(&m_qRotation, g_fSPF * 5.0f *m_fSpeed);
+	//	//D3DXQuaternionRotationMatrix(m_qRotation,);
+	//}
+	//if (g_InputData.bAKey)		
+	//{
+	//	//MoveSide(-g_fSPF * 5.0f* m_fSpeed);
+	//	//D3DXToRadian(-g_fSPF * 5.0f * m_fSpeed);
+	////	D3DXMatrixRotationZ(&m_matWorld, -g_fSPF * 5.0f *m_fSpeed);
+	//	//D3DXQuaternionRotationMatrix();
+	//}
+
+
+
+
 	if (g_InputData.bQKey)		MoveUp(g_fSPF * 5.0f* m_fSpeed);
 	if (g_InputData.bEKey)		MoveUp(-g_fSPF * 5.0f* m_fSpeed);
 
