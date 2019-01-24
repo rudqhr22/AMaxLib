@@ -17,18 +17,6 @@ using namespace std;
 
 
 
-class ATreeMesh
-{
-public:
-	T_STR			 m_strName;
-	ATreeMesh*	     m_pParent;
-	list<ATreeMesh> m_ChildList;
-
-public:
-	ATreeMesh() {};
-	~ATreeMesh() {};
-};
-
 
 
 class SampleMfc : public ACore
@@ -45,6 +33,9 @@ public:
 	 bool m_bPlay;
 	
 
+	 AModelObj*				m_ModelObj;
+	 ABoneObj*				m_BoneObj;
+	 AHeroObj*				m_CharObj;
 
 public:
 	bool Init();
@@ -55,6 +46,7 @@ public:
 
 
 	void LoadMatrixList();
+	AMesh* SearchToCollects(T_STR	m_strParentName);
 	void AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& level);
 	void AddTreeItem(AMesh* pObject);
 public:

@@ -4,11 +4,9 @@
 SampleMfc* SampleMfc::instance = nullptr;
 
 
- AModelObj*				m_ModelObj;
- ABoneObj*				m_BoneObj;
- AHeroObj*				m_CharObj;
-
-
+ //AModelObj*				m_ModelObj;
+ //ABoneObj*				m_BoneObj;
+ //AHeroObj*				m_CharObj;
 CString m_StrSkin;
 CString m_StrMatrix;
 CString m_StrChar;
@@ -32,7 +30,7 @@ void SampleMfc::AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& 
 void SampleMfc::AddTreeItem(AMesh* pObject)
 {
 	auto parent = AChrForm2::GetInstance()->m_TreeList.InsertItem(pObject->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-	AChrForm2::GetInstance()->m_TreeList.SetItemData(parent, (DWORD_PTR)pObject);
+	//AChrForm2::GetInstance()->m_TreeList.SetItemData(parent, (DWORD_PTR)pObject);
 
 	AddTreeMesh(pObject, parent, 1);
 }
@@ -168,7 +166,7 @@ void AChrForm::OnLbnDblclkList1()
 	CString str;
 	AChrForm::GetInstance()->m_MatrixList.GetText(indexSel,str);
 
-	m_BoneObj = new ABoneObj;
+	SampleMfc::GetInstance()->m_BoneObj = new ABoneObj;
 
 	CString temp = 0;
 	temp = "../data/MODEL/Guard_02/";
@@ -176,23 +174,23 @@ void AChrForm::OnLbnDblclkList1()
 	temp += str;
 
 	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), temp, _T("../../Data/Shader/MatrixViewer.hlsl"));
-	m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
+	SampleMfc::GetInstance()->m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
 
-	m_CharObj->m_pBoneObject = m_BoneObj;
-	m_CharObj->SetActionFrame(
-		m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, 
-		m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	SampleMfc::GetInstance()->m_CharObj->m_pBoneObject = SampleMfc::GetInstance()->m_BoneObj;
+	SampleMfc::GetInstance()->m_CharObj->SetActionFrame(
+		SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
+		SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 
 	AChrForm::GetInstance()->m_SliderBar.SetRange(
-		m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
-		m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
-	AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
-	m_iMin = m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
-	m_iMax = m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
+		SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
+		SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	AChrForm::GetInstance()->m_SliderBar.SetPos(SampleMfc::GetInstance()->m_CharObj->m_iCurrentFrame);
+	m_iMin = SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
+	m_iMax = SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
 }
 
 //부모이름을 찾아서 구분함
-AMesh* SearchToCollects(T_STR	m_strParentName)
+AMesh* SampleMfc::SearchToCollects(T_STR	m_strParentName)
 {
 	for (DWORD dwGroup = 0; dwGroup < m_CharObj->m_pBoneObject->m_pMesh.size(); dwGroup++)
 	{
@@ -259,7 +257,6 @@ void AChrForm::OnBnClickedButtonChar()
 	static TCHAR BASED_CODE szFilter[] = _T("이미지 파일(*.cit) | *.CIT; *.cit;");
 	CFileDialog fileDlg(TRUE, _T("*.cit"), 0, OFN_HIDEREADONLY, szFilter);
 
-
 	if (IDOK == fileDlg.DoModal())
 	{
 		m_StrChar = fileDlg.GetPathName();
@@ -268,39 +265,37 @@ void AChrForm::OnBnClickedButtonChar()
 	I_CHARMGR.Init();
 	I_CHARMGR.Load(g_pd3dDevice.Get(), g_pImmediateContext.Get(), m_StrChar);
 
-	m_CharObj = new AHeroObj;
+	SampleMfc::GetInstance()->m_CharObj = new AHeroObj;
 
-	if (m_ModelObj != nullptr)
+	if (SampleMfc::GetInstance()->m_ModelObj != nullptr)
 	{
-		SAFE_DEL(m_ModelObj);
+		SAFE_DEL(SampleMfc::GetInstance()->m_ModelObj);
 	}
 
-	m_ModelObj = new AModelObj;
+	SampleMfc::GetInstance()->m_ModelObj = new AModelObj;
 
 
-	m_CharObj->m_pChar = I_CHARMGR.GetPtr(0);
-	m_ModelObj->Load(g_pd3dDevice.Get(), m_CharObj->m_pChar->m_pModelList[0]->m_pModel->m_szName.c_str(), _T("../../Data/Shader/SkinViewer.hlsl"), 0);
+	SampleMfc::GetInstance()->m_CharObj->m_pChar = I_CHARMGR.GetPtr(0);
+	SampleMfc::GetInstance()->m_ModelObj->Load(g_pd3dDevice.Get(), SampleMfc::GetInstance()->m_CharObj->m_pChar->m_pModelList[0]->m_pModel->m_szName.c_str(), _T("../../Data/Shader/SkinViewer.hlsl"), 0);
 
-	m_CharObj->m_pBoneObject = m_CharObj->m_pChar->m_pBoneObject;
-	m_CharObj->SetActionFrame(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	SampleMfc::GetInstance()->m_CharObj->m_pBoneObject = SampleMfc::GetInstance()->m_CharObj->m_pChar->m_pBoneObject;
+	SampleMfc::GetInstance()->m_CharObj->SetActionFrame(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 
-	AChrForm::GetInstance()->m_SliderBar.SetRange(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
-	AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
-	m_iMin = m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
-	m_iMax = m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
+	AChrForm::GetInstance()->m_SliderBar.SetRange(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	AChrForm::GetInstance()->m_SliderBar.SetPos(SampleMfc::GetInstance()->m_CharObj->m_iCurrentFrame);
+	m_iMin = SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame;
+	m_iMax = SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame;
 
-
-	AChrForm2::GetInstance()->m_TreeList;
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	for (int i = 0; i < SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
 	{
-		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
+		AMesh* pPoint = SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh[i];
 
 		if (!pPoint->m_strParentName.empty())
 		{
-			auto* pParentNode = SearchToCollects(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName);
+			auto* pParentNode = SampleMfc::GetInstance()->SearchToCollects(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName);
 			if (pParentNode)
 			{
 				pPoint->m_pParent = pParentNode;
@@ -311,26 +306,16 @@ void AChrForm::OnBnClickedButtonChar()
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[0]);
 
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	for (int i = 0; i < SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
 	{
-		if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
+		if (SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
 		{
-			SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[i]);
+			SampleMfc::GetInstance()->AddTreeItem(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_pMesh[i]);
 			break;
 		}
 	}
 
-
-
-	//CString cstr = AChrForm2::GetInstance()->m_TreeList.GetItemText();
-	//int a = AChrForm2::GetInstance()->m_TreeList.GetItemHeight();
-	//AChrForm2::GetInstance()->m_TreeList.getitem
-	//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-
-
 }
-
-
 
 
 
@@ -347,90 +332,25 @@ void AChrForm::OnBnClickedBone()
 		m_StrChar = fileDlg.GetPathName();
 	}
 
-	m_BoneObj = new ABoneObj;
+	SampleMfc::GetInstance()->m_BoneObj = new ABoneObj;
 
 	
 	int index = I_OBJMGR.LoadObj(g_pd3dDevice.Get(), m_StrChar, _T("../../Data/Shader/MatrixViewer.hlsl"));
-	m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
+	SampleMfc::GetInstance()->m_BoneObj = (ABoneObj*)I_OBJMGR.GetPtr(index);
 
-	m_CharObj->m_pBoneObject = m_BoneObj;
-	m_CharObj->SetActionFrame(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
-	AChrForm::GetInstance()->m_SliderBar.SetRange(m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
-	m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	SampleMfc::GetInstance()->m_CharObj->m_pBoneObject = SampleMfc::GetInstance()->m_BoneObj;
+	SampleMfc::GetInstance()->m_CharObj->SetActionFrame(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame, SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
+	AChrForm::GetInstance()->m_SliderBar.SetRange(SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iFirstFrame,
+		SampleMfc::GetInstance()->m_CharObj->m_pBoneObject->m_Scene.iLastFrame);
 
-	AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
+	AChrForm::GetInstance()->m_SliderBar.SetPos(SampleMfc::GetInstance()->m_CharObj->m_iCurrentFrame);
 
 }
 
 
-//{
-//	HTREEITEM hItemCur;
-//	CString csName;
-//
-//	//hItemCur = m_ObjTreeCtrl.GetSelectedItem();
-//	//m_ObjTreeCtrl.SelectItem(hItemCur);
-//
-//	//csName = m_ObjTreeCtrl.GetItemText(hItemCur);
-//
-//	//for (int it = 0; it != obj->m_MeshList.size(); it++)
-//	//{
-//	//	AMesh* pMesh = obj->m_MeshList[it];
-//	//	pMesh->m_bSelect = false;
-//	//}
-//
-//	//for (int it = 0; it != obj->m_MeshList.size(); it++)
-//	//{
-//	//	AMesh* pMesh = obj->m_MeshList[it];
-//
-//	//	if (pMesh->m_strNodeName.c_str() == csName)
-//	//	{
-//	//		pMesh->m_bSelect = true;
-//	//		break;
-//	//	}
-//	//}
-//
-//	UpdateData(true);
-//}
 
 
-void AChrForm::OnEnChangeFrameMn()
-{
-	CString str;                                                  
 
-	m_FRAME_MN.GetWindowText(str);
-	
-	m_iMin = _ttoi(str);
-
-	AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,
-		m_iMax);
-
-	m_CharObj->SetActionFrame(m_iMin, m_iMax);
-}
-
-void AChrForm::OnEnChangeFrameMx()
-{
-	CString str;
-
-	m_FRAME_MX.GetWindowText(str);
-
-	m_iMax = _ttoi(str);
-
-	AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,m_iMax);
-
-	m_CharObj->SetActionFrame(m_iMin, m_iMax);
-}
-
-void AChrForm::OnBnClickedPlayButton()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	SampleMfc::GetInstance()->m_bPlay = true;
-}
-
-void AChrForm::OnBnClickedStopButton()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	SampleMfc::GetInstance()->m_bPlay = false;
-}
 
 
 void AChrForm::OnNMReleasedcaptureSlider1(NMHDR *pNMHDR, LRESULT *pResult)
