@@ -240,10 +240,6 @@ HTREEITEM FindTreeData(CTreeCtrl* pTree, HTREEITEM hItem, DWORD dwData)
 int icnt = 0;
 void MakeTreeList(AMesh* pMesh , HTREEITEM item)
 {
-	if (pMesh->m_pChildMesh.size() <= 0)
-	{
-		return;
-	}
 
 	while (item !=NULL)
 	{
@@ -298,7 +294,6 @@ void AChrForm::OnBnClickedButtonChar()
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
-
 	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
 	{
 		AMesh* pPoint = m_CharObj->m_pBoneObject->m_pMesh[i];
@@ -313,19 +308,17 @@ void AChrForm::OnBnClickedButtonChar()
 			}
 		}
 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[0]);
 
-	SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[0]);
-
-	//for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
-	//{
-	//	if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
-	//	{
-	//		HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
-
-	//		MakeTreeList(m_CharObj->m_pBoneObject->m_pMesh[i], rootItem);
-	//		break;
-	//	}
-	//}
+	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	{
+		if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
+		{
+			SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[i]);
+			break;
+		}
+	}
 
 
 
