@@ -13,6 +13,30 @@ CString m_StrSkin;
 CString m_StrMatrix;
 CString m_StrChar;
 
+void SampleMfc::AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& level)
+{
+	for (auto& iter : pObject->m_pChildMesh)
+	{
+		auto ppparent = AChrForm2::GetInstance()->m_TreeList.InsertItem(iter->m_strNodeName.c_str(), 0, level, parent, TVI_SORT);
+
+		AChrForm2::GetInstance()->m_TreeList.SetItemData(ppparent, (DWORD_PTR)iter);
+
+		if (!iter->m_pChildMesh.empty())
+		{
+			AddTreeMesh(iter, ppparent, level + 1);
+		}
+	}
+}
+
+
+void SampleMfc::AddTreeItem(AMesh* pObject)
+{
+	auto parent = AChrForm2::GetInstance()->m_TreeList.InsertItem(pObject->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+	AChrForm2::GetInstance()->m_TreeList.SetItemData(parent, (DWORD_PTR)pObject);
+
+	AddTreeMesh(pObject, parent, 1);
+}
+
 
 bool SampleMfc::Init()
 {
@@ -25,6 +49,12 @@ bool SampleMfc::Init()
 
 	return true;
 }
+
+
+
+
+
+
 
 bool SampleMfc::Frame()
 {
@@ -223,10 +253,7 @@ void MakeTreeList(AMesh* pMesh , HTREEITEM item)
 			icnt = 0;
 		}
 		MakeTreeList(pMesh->m_pChildMesh[icnt++], Item);
-		
 	}
-
-
 }
 
 
@@ -287,17 +314,18 @@ void AChrForm::OnBnClickedButtonChar()
 		}
 	}
 
-	for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
-	{
-		if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
-		{
-			HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+	SampleMfc::GetInstance()->AddTreeItem(m_CharObj->m_pBoneObject->m_pMesh[0]);
 
-			MakeTreeList(m_CharObj->m_pBoneObject->m_pMesh[i], rootItem);
-			break;
-		}
-	}
+	//for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
+	//{
+	//	if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_pChildMesh.size() > 1)
+	//	{
+	//		HTREEITEM rootItem = AChrForm2::GetInstance()->m_TreeList.InsertItem(m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
 
+	//		MakeTreeList(m_CharObj->m_pBoneObject->m_pMesh[i], rootItem);
+	//		break;
+	//	}
+	//}
 
 
 
@@ -306,78 +334,8 @@ void AChrForm::OnBnClickedButtonChar()
 	//AChrForm2::GetInstance()->m_TreeList.getitem
 	//HTREEITEM* Item = AChrForm2::GetInstance()->m_TreeList.GetItem //InsertItem(pPoint->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
 
-//HTREEITEM item1 = tree.InsertItem("item1", 1, 1, rootItem, TVI_LAST);
-//HTREEITEM item2 = tree.InsertItem("item2", 1, 1, rootItem, TVI_LAST);
-
-
 
 }
-
-
-
-
-
-
-
-void AChrForm2::RecursiveFunction(HTREEITEM hItem)
-{
-	//if (m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName == L"")
-	//{
-	//	return;
-	//}
-
-	while (hItem)
-	{
-		// 수행할 기능 추가
-
-		// 자식 노드 존재 확인
-		if (m_TreeList.ItemHasChildren(hItem))
-		{
-
-			// 재귀함수 다시 호출
-			RecursiveFunction(m_TreeList.GetChildItem(hItem));
-		}
-
-		// 자식 노드가 없으면 형제 노드 사용
-		hItem = m_TreeList.GetNextSiblingItem(hItem);
-	}
-}
-
-
-//AChrForm2::GetInstance()->m_TreeList.DeleteAllItems();
-//TVITEM tvItem;
-//tvItem.cchTextMax = 256;
-//tvItem.pszText = szItem;
-//tvItem.mask = TVIF_TEXT | TVIF_HANDLE;
-//for (int i = 0; i < m_CharObj->m_pBoneObject->m_pMesh.size(); i++)
-//{
-//	auto strNode = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strNodeName;
-//	auto strParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
-//
-//	if (strParent == L"" || strParent == L"장면 루트")
-//	{
-//		top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
-//	}
-//	else
-//	{
-//		//AChrForm2::GetInstance()->RecursiveFunction(top);
-//		if (prevParent == strParent)
-//		{
-//			AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
-//		}
-//		else
-//		{
-//			top = AChrForm2::GetInstance()->m_TreeList.InsertItem(strNode.c_str(), TVI_ROOT, TVI_LAST);
-//		}
-//	}
-//	if (prevParent != strParent) {
-//		prevParent = m_CharObj->m_pBoneObject->m_pMesh[i]->m_strParentName;
-//	}
-//	else
-//	{
-//		prevParent;
-//	}
-//}
 
 
 

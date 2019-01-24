@@ -205,6 +205,7 @@
     <ClInclude Include="AMapPane.h" />
     <ClInclude Include="AUiForm.h" />
     <ClInclude Include="AUiPane.h" />
+    <ClInclude Include="AUtil.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MapTool.h" />
     <ClInclude Include="MapToolDoc.h" />

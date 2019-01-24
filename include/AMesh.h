@@ -83,8 +83,6 @@ public:
 
 	T_STR								m_strNodeName;
 	T_STR								m_strParentName;
-	
-	AMesh*								m_pParent;
 	vector<AMesh*>						m_pChildMesh;
 
 	int iSubIndex;
@@ -92,6 +90,7 @@ public:
 	int   m_iNumTrack[4];
 	int   m_iMtrlRef;
 
+	AMesh*								m_pParent;
 
 	int									m_iNumFace;
 	int									m_iDiffuseTex;

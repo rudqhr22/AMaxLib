@@ -55,7 +55,8 @@ public:
 
 
 	void LoadMatrixList();
-
+	void AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& level);
+	void AddTreeItem(AMesh* pObject);
 public:
 	SampleMfc();
 	virtual ~SampleMfc();
@@ -105,4 +106,32 @@ public:
 //		m_pLine->Draw(m_pImmediateContext.Get(), vPoint[12], vPoint[14], vColor);
 //	}
 //}
+
+//
+//void AddTreeNode(AMesh* pObject, const HTREEITEM& parent, const int& level);
+//
+//void AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& level)
+//{
+//	for (auto& iter : pObject->m_pChildMesh)
+//	{
+//		auto ppparent = AChrForm2::GetInstance()->m_TreeList.InsertItem(iter->m_strNodeName.c_str(), 0, level, parent, TVI_SORT);
+//
+//		AChrForm2::GetInstance()->m_TreeList.SetItemData(ppparent, (DWORD_PTR)iter);
+//
+//		if (!iter->m_pChildMesh.empty())
+//		{
+//			AddTreeMesh(iter, ppparent, level + 1);
+//		}
+//	}
+//}
+//
+//void AddTreeItem(AMesh* pObject)
+//{
+//	auto parent = AChrForm2::GetInstance()->m_TreeList.InsertItem(pObject->m_strNodeName.c_str(), 0, 0, TVI_ROOT, TVI_LAST);
+//	AChrForm2::GetInstance()->m_TreeList.SetItemData(parent, (DWORD_PTR)pObject);
+//	
+//	AddTreeNode(pObject, parent, 1);
+//}
+//
+
 

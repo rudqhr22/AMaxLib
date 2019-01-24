@@ -104,6 +104,7 @@
     <ClInclude Include="MapToolView.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="AUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\MapTool.ico">
