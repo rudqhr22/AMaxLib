@@ -11,19 +11,28 @@ CString m_StrSkin;
 CString m_StrMatrix;
 CString m_StrChar;
 
-void SampleMfc::AddTreeMesh(AMesh* pObject, const HTREEITEM& parent, const int& level)
+void SampleMfc::AddTreeMesh(AMesh* pMesh, const HTREEITEM& parent, const int& level)
 {
-	for (auto& iter : pObject->m_pChildMesh)
+	for (int i=0; i < pMesh->m_pChildMesh.size(); i++)
 	{
-		auto ppparent = AChrForm2::GetInstance()->m_TreeList.InsertItem(iter->m_strNodeName.c_str(), 0, level, parent, TVI_SORT);
+		HTREEITEM item = AChrForm2::GetInstance()->m_TreeList.InsertItem(pMesh->m_pChildMesh[i]->m_strNodeName.c_str(), 0, level, parent, TVI_SORT);
 
-		AChrForm2::GetInstance()->m_TreeList.SetItemData(ppparent, (DWORD_PTR)iter);
 
-		if (!iter->m_pChildMesh.empty())
+		if (!pMesh->m_pChildMesh.empty())
 		{
-			AddTreeMesh(iter, ppparent, level + 1);
+			AddTreeMesh(pMesh->m_pChildMesh[i], item, level + 1);
 		}
 	}
+
+	//for (auto& iter : pObject->m_pChildMesh)
+	//{
+	//	auto ppparent = AChrForm2::GetInstance()->m_TreeList.InsertItem(iter->m_strNodeName.c_str(), 0, level, parent, TVI_SORT);
+	//	AChrForm2::GetInstance()->m_TreeList.SetItemData(ppparent, (DWORD_PTR)iter);
+	//	if (!iter->m_pChildMesh.empty())
+	//	{
+	//		AddTreeMesh(iter, ppparent, level + 1);
+	//	}
+	//}
 }
 
 
@@ -59,18 +68,21 @@ bool SampleMfc::Frame()
 
 	if (I_INPUT.KeyCheck(DIK_F6) == KEY_UP)
 	{
-		m_CharObj->m_bBoneRender = !m_CharObj->m_bBoneRender;
+		//m_CharObj->m_bBoneRender = !m_CharObj->m_bBoneRender;
+	
+
 	}
 
+
 	
-	if (m_CharObj != nullptr && m_bPlay == true)
+	if (m_CharObj != nullptr )
 	{
 		m_CharObj->Frame();
 
-
-		AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
-		//AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
-
+		if (!AChrForm::GetInstance()->m_bStop == true)
+		{
+			AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
+		}
 	}
 
 	if (m_ModelObj != nullptr)
@@ -235,21 +247,6 @@ HTREEITEM FindTreeData(CTreeCtrl* pTree, HTREEITEM hItem, DWORD dwData)
 	return hitemFind;
 }
 
-int icnt = 0;
-void MakeTreeList(AMesh* pMesh , HTREEITEM item)
-{
-
-	while (item !=NULL)
-	{
-		HTREEITEM Item = AChrForm2::GetInstance()->m_TreeList.InsertItem(pMesh->m_strNodeName.c_str(), 0, 0, item, TVI_LAST);
-		if (pMesh->m_pChildMesh.size() <= icnt)
-		{
-			icnt = 0;
-		}
-		MakeTreeList(pMesh->m_pChildMesh[icnt++], Item);
-	}
-}
-
 
 void AChrForm::OnBnClickedButtonChar()
 {
@@ -314,7 +311,6 @@ void AChrForm::OnBnClickedButtonChar()
 			break;
 		}
 	}
-
 }
 
 
@@ -347,21 +343,12 @@ void AChrForm::OnBnClickedBone()
 
 }
 
-
-
-
-
-
-
 void AChrForm::OnNMReleasedcaptureSlider1(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	//int i = 0;
-	//i = m_SliderBar.GetPos();
-	//m_CharObj->m_iCurrentFrame = i;
-	//SampleMfc::GetInstance()->m_bPlay = true;
-	//AChrForm::GetInstance()->m_SliderBar.SetPos(m_CharObj->m_iCurrentFrame);
-	////AChrForm::GetInstance()->m_SliderBar.SetRange(m_iMin,		m_iMax);
+	int itemp=0;
+	itemp =AChrForm::GetInstance()->m_SliderBar.GetPos();
+	SampleMfc::GetInstance()->m_CharObj->m_fFrame = itemp;
+	AChrForm::GetInstance()->m_SliderBar.SetPos(SampleMfc::GetInstance()->m_CharObj->m_fFrame);
 
 	*pResult = 0;
 }
@@ -378,8 +365,6 @@ void AChrForm::OnNMReleasedcaptureSlider1(NMHDR *pNMHDR, LRESULT *pResult)
 //	}*/
 //	m_FIleNameList.DeleteString(0);
 //	m_FIleNameList.AddString(m_AseFileName);
-//
-//	
 //
 //	HTREEITEM  hRoot, hChild;
 //	hRoot = 0;
