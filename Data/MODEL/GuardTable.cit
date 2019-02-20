@@ -1,53 +1,13 @@
 *NUMCHARACTER		1
 //////////////////////////////////////////////////////////////////////////
 *CHARACTERNAME	TEST_CHAR
-*SHADERFILENMAE		../data/Shader/Character.hlsl
-*MATRIXFILENAME		../data/MODEL/Guard_02/HERO_IDLE.mat    
+*SHADERFILENMAE		../../data/Shader/Character.hlsl
+
+*MATRIXMATRIXCOUNT  1
+*MATRIXFILENAME		../../data/MODEL/guard/idle.mat    
 
 *SKIN_UPPER_BODY_COUNT	1
-*SKIN_UPPER_BODY	../data/MODEL/Guard_02/Guard_02.skm	null
+*SKIN_UPPER_BODY		../../data/MODEL/guard/skin.skm	null
 *SKIN_LOWER_BODY_COUNT		0
-*SKIN_ARM_COUNT		0
-*SKIN_HAND_COUNT		0
-*SKIN_FOOT_COUNT		0
-*SKIN_FACE_COUNT		0
-*SKIN_HAIR_COUNT		0
-*SKIN_WEAPON_COUNT		0
-*SKIN_DEFENSE_COUNT		0	
-*SKIN_ETCETERA_COUNT		0
 
 
-
-*SKIN_UPPER_BODY_COUNT	1
-*SKIN_UPPER_BODY	../data/ASE/mobskin.skm		null
-*SKIN_LOWER_BODY_COUNT	0
-*SKIN_ARM_COUNT			0
-*SKIN_HAND_COUNT		0
-*SKIN_FOOT_COUNT		0
-*SKIN_FACE_COUNT		0
-*SKIN_HAIR_COUNT		0
-*SKIN_WEAPON_COUNT		2
-*SKIN_WEAPON	../data/ASE/mobwep1.skm null 
-*SKIN_WEAPON	../data/ASE/mobwep2.skm null 
-*SKIN_DEFENSE_COUNT		0	
-*SKIN_ETCETERA_COUNT	0
-
-
-// 캐릭터이름   홍길동
-// 0=상체				=> SKIN_UPPER_BODY
-// 1=하체				=> SKIN_LOWER_BODY
-// 2=팔					=> SKIN_ARM
-// 3=손( 장갑 )			=> SKIM_HAND
-// 4=발( 장화 )			=> SKIN_FOOT
-// 5=얼굴( 마스크 )		=> SKIN_FACE
-// 6=헤어( 모자 )		=> SKIN_HAIR
-// 7=무기류				=> SKIN_SEAPON
-// 8=방어류				=> SKIN_DEFENSE
-// 9=기타				=> SKIN_ETCETERA
-//struct CharacterTable
-//{
-//	char strName[32];
-//  	char strShader[64];
-//	char strMatrix[32];
-//	char strTable[10][32];
-//}
