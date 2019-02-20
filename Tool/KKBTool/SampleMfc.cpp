@@ -54,6 +54,11 @@ bool SampleMfc::Init()
 	
 	LoadMatrixList();
 
+	AChrForm::GetInstance()->m_MatrixList.AddString(L"sword.skm");
+	AChrForm::GetInstance()->m_MatrixList.AddString(L"helmet.skm");
+	AChrForm::GetInstance()->m_MatrixList.AddString(L"shild.skm");
+
+
 	return true;
 }
 
